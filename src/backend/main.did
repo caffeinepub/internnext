@@ -1,0 +1,80 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   badges: vec Badge;
+   completedChallenges: vec text;
+   lastLoginDay: text;
+   level: text;
+   streak: nat;
+   xp: nat;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type ResumeSession = 
+ record {
+   jobDescription: text;
+   originalResume: text;
+   sessionId: text;
+   skillGaps: vec text;
+   tailoredResume: text;
+   timestamp: int;
+ };
+type LeaderboardEntry = 
+ record {
+   level: text;
+   "principal": text;
+   xp: nat;
+ };
+type Challenge = 
+ record {
+   description: text;
+   id: text;
+   title: text;
+   xpReward: nat;
+ };
+type Badge = 
+ record {
+   description: text;
+   id: text;
+   name: text;
+ };
+service : {
+  _initializeAccessControlWithSecret: (userSecret: text) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  completeChallenge: (challengeId: text) -> (bool);
+  getCallerUserRole: () -> (UserRole) query;
+  getChallenges: () -> (vec Challenge) query;
+  getLeaderboard: () -> (vec LeaderboardEntry) query;
+  getProfile: () -> (UserProfile) query;
+  getResumeSessions: () -> (vec ResumeSession) query;
+  isCallerAdmin: () -> (bool) query;
+  recordLogin: () -> ();
+  tailorResume: (originalResume: text, jobDescription: text) ->
+   (ResumeSession);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+}

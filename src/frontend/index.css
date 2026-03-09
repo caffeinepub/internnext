@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/assets/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/assets/fonts/GeistMono[wght].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 0.13 0.008 265;
+    --foreground: 0.96 0.008 100;
+    --card: 0.18 0.01 265;
+    --card-foreground: 0.96 0.008 100;
+    --popover: 0.20 0.01 265;
+    --popover-foreground: 0.96 0.008 100;
+    --primary: 0.84 0.24 128;
+    --primary-foreground: 0.12 0.01 265;
+    --secondary: 0.22 0.015 265;
+    --secondary-foreground: 0.90 0.008 100;
+    --muted: 0.20 0.01 265;
+    --muted-foreground: 0.62 0.018 265;
+    --accent: 0.84 0.24 128;
+    --accent-foreground: 0.12 0.01 265;
+    --destructive: 0.63 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.28 0.018 265;
+    --input: 0.25 0.015 265;
+    --ring: 0.84 0.24 128;
+    --chart-1: 0.84 0.24 128;
+    --chart-2: 0.65 0.20 240;
+    --chart-3: 0.65 0.22 290;
+    --chart-4: 0.82 0.17 80;
+    --chart-5: 0.63 0.22 25;
+    --sidebar: 0.16 0.01 265;
+    --sidebar-foreground: 0.96 0.008 100;
+    --sidebar-primary: 0.84 0.24 128;
+    --sidebar-primary-foreground: 0.12 0.01 265;
+    --sidebar-accent: 0.22 0.015 265;
+    --sidebar-accent-foreground: 0.96 0.008 100;
+    --sidebar-border: 0.28 0.018 265;
+    --sidebar-ring: 0.84 0.24 128;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-gradient-lime {
+    background: linear-gradient(135deg, oklch(0.84 0.24 128), oklch(0.75 0.20 160));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-lime {
+    box-shadow: 0 0 20px oklch(0.84 0.24 128 / 0.35), 0 0 60px oklch(0.84 0.24 128 / 0.1);
+  }
+
+  .glow-lime-sm {
+    box-shadow: 0 0 12px oklch(0.84 0.24 128 / 0.25);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 20px oklch(0.65 0.20 240 / 0.4);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px oklch(0.65 0.22 290 / 0.4);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px oklch(0.82 0.17 80 / 0.5);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(oklch(0.84 0.24 128 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.84 0.24 128 / 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .card-glass {
+    background: oklch(0.18 0.012 265 / 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.30 0.018 265);
+  }
+
+  .xp-bar-fill {
+    background: linear-gradient(90deg, oklch(0.84 0.24 128), oklch(0.75 0.20 160));
+    box-shadow: 0 0 8px oklch(0.84 0.24 128 / 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes xp-fill {
+  from { width: 0%; }
+  to { width: var(--xp-width); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.5s ease-out forwards; }
+.animate-xp-fill { animation: xp-fill 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
